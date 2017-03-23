@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hola mundo con jquery</title>
+</head>
+<body>
+	<input type="text" id="txt-nombre" name="txt-nombre">
+	<button onclick="mostrarValores();">Mostrar Valores</button>
+	<br>
+	<img src="img/bob.jpg" id="imagen" style="display: none;">
+	<br><button id="btn-ocultar-imagen">Ocultar imagen</button>
+	<br><button onclick="mostrarImagen();">Mostrar imagen</button>
+
+
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript">
+		//$("#txt-nombre").val("Juan");
+		document.getElementById("txt-nombre").value = "Juan";
+
+		function mostrarValores(){
+			alert($("#txt-nombre").val());
+			alert(document.getElementById("txt-nombre").value);
+		}
+
+		/*function ocultarImagen(){
+			$("#imagen").fadeOut(2000);
+		}*/
+
+		function mostrarImagen(){
+			$("#imagen").fadeIn(2000);
+		}
+
+		var metodo = function(){
+			alert("Esta es otra forma de declarar funciones");
+		}
+
+		/*$(document).ready(function(){
+			$("#txt-ultimo").val("Se cargo el DOM completamente.");
+		});*/
+
+		$(document).ready(metodo);
+
+		$("#btn-ocultar-imagen").click(function(){
+			//alert("Esta es la nueva funcionalidad del boton ocultar imagen");
+			$("#imagen").fadeOut(2000);
+		});
+	</script>
+	<input type="text" id="txt-ultimo">
+</body>
+</html>

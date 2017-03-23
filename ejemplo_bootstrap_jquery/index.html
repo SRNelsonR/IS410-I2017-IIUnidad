@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Bottstrap - JQuery</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+</head>
+<body>
+	<button role="button" class= "btn btn-primary" data-toggle="modal" data-target="#modal-registrar-usuario">Mostrar ventana modal</button>
+
+	<div class="modal fade" tabindex="-1" role="dialog" id="modal-registrar-usuario">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title">Este es el titulo</h4>
+	      </div>
+	      <div class="modal-body">
+	        <p>Este es el contenido</p>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+	        <button type="button" class="btn btn-primary" id="btn-guardar">Guardar</button>
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script>
+		$("#btn-guardar").click(function(){
+			alert("Guardar un registro");
+		});
+	</script>
+</body>
+</html>
