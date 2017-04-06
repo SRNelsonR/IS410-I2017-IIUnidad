@@ -38,32 +38,58 @@
 			$aplicacion->guardarRegistro();
 			break;
 		case '2':
-			$archivo = fopen("../data/aplicaciones.csv","r");
-			while($linea = fgets($archivo)){
-				$partes = explode(",", $linea);
-				//0:NOMBRE_APLICACION,1:DESCRIPCION,2:FECHA,3:CALIFICACION,4:URL,5:TAMAÑO,6:VERSION,7:DESARROLLADOR,8:URL_ICONO
+				include_once("../class/class-conexion.php");
+				$conexion = new Conexion();
+				$conexion->establecerConexion();
+				$resultadoAplicaciones = $conexion->ejecutarInstruccion(
+				"SELECT a.codigo_aplicacion,
+						    a.nombre,
+						    descripcion,
+						    fecha_actualizacion,
+						    fecha_publicacion,
+						    calificacion,
+						    url,
+						    tamanio_archivo,
+						    url_icono,
+						    version,
+						    a.codigo_desarrollador,
+						    a.codigo_pais,
+						    a.codigo_empresa,
+						    b.nombre nombre_desarrollador,
+						    b.apellido,
+						    concat(b.nombre,' ', b.apellido) nombre_completo,
+						    c.nombre_pais,
+						    d.nombre_empresa
+						FROM tbl_aplicaciones a
+						INNER JOIN tbl_desarrolladores b
+						ON (a.codigo_desarrollador = b.codigo_desarrollador)
+						INNER JOIN tbl_paises c
+						ON (a.codigo_pais = c.codigo_pais)
+						INNER JOIN tbl_empresas d
+						ON (a.codigo_empresa = d.codigo_empresa)"
+			);
+			while($fila = $conexion->obtenerRegistro($resultadoAplicaciones)){
 				?>
 
 				<div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
 					<div class="well">
-						<img src="<?php echo $partes[8]; ?>" class="img-responsive">
-						<b><?php echo $partes[0]; ?></b><br>
-						<span class="label label-primary"><?php echo $partes[3]; ?></span>
+						<img src="<?php echo $fila["url_icono"]; ?>" class="img-responsive">
+						<b><?php echo $fila["nombre"]; ?></b><br>
+						<span class="label label-primary"><?php echo $fila["calificacion"]; ?></span>
 						<?php 
-							for ($j=0;$j<$partes[3];$j++)
+							for ($j=0;$j<$fila["calificacion"];$j++)
 								echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>';
 						?>
 						<br>
-						<?php echo $partes[1]; ?><br>
-						Versión: <b><?php echo $partes[6]; ?></b><br>
-						<a href="<?php echo $partes[4]; ?>">Descargar</a>
+						<?php echo utf8_encode($fila["descripcion"]); ?><br>
+						Versión: <b><?php echo $fila["version"]; ?></b><br>
+						<a href="<?php echo $fila["url"]; ?>">Descargar</a>
 					</div>
 				</div>
 				<?php
 				//echo $linea."<br>";
 			}
 
-			fclose($archivo);
 			break;
 		default:
 			# code...

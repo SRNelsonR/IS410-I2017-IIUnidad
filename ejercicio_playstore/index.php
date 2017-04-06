@@ -3,6 +3,11 @@
 	$conexion = new Conexion();
 	$conexion->establecerConexion();
 	$resultadoDesarrolladores = $conexion->ejecutarInstruccion("SELECT codigo_desarrollador, CONCAT(nombre,' ', apellido,'(', correo ,')') nombre_desarrollador FROM tbl_desarrolladores");
+
+	$resultadoCategorias = $conexion->ejecutarInstruccion("SELECT codigo_categoria, nombre_categoria FROM tbl_categorias");
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -121,7 +126,12 @@
 						<td>Icono:</td>
 						<td>
 							<select name="" id="slc-icono" class="form-control">
-								
+								<option value="img/icono1.png">img/icono1.png</option>
+								<option value="img/icono2.png">img/icono2.png</option>
+								<option value="img/icono3.png">img/icono3.png</option>
+								<option value="img/icono4.png">img/icono4.png</option>
+								<option value="img/icono5.png">img/icono5.png</option>
+
 							</select>
 						</td>
 					</tr>
@@ -129,8 +139,12 @@
 					
 						<td>Categorias:</td>
 						<td>
-							<label><input type="checkbox" name="chk-categorias[]" 
-									value="">Categoria X</label><br>
+							<?php
+								while($fila=$conexion->obtenerRegistro($resultadoCategorias)){
+									echo '<label><input type="checkbox" name="chk-categorias[]" 
+									value="'.$fila["codigo_categoria"].'">'.$fila["nombre_categoria"].'</label><br>';
+								}
+							?>
 						</td>
 					</tr>
 					<tr>

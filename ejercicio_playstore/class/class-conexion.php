@@ -19,7 +19,7 @@
 			    echo "Mensaje Error: " . mysqli_connect_error() . "<br>";
 			    exit;
 			}
-			echo "Conexion Satisfactoria";
+			//echo "Conexion Satisfactoria";
 		}
 
 		public function cerrarConexion(){
