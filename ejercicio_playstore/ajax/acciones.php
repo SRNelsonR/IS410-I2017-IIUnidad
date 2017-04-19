@@ -14,6 +14,21 @@
 			$version,
 			$fechaActualizacion,
 			$desarrollador*/
+
+			echo 	$_POST["txt-aplicacion"].", ".
+					$_POST["txt-descripcion"].", ".
+					$_POST["txt-fecha-publicacion"].", ".
+					$_POST["txt-calificacion"].", ".
+					$_POST["txt-url"].", ".
+					$_POST["txt-tamanio"].", ".
+					$_POST["slc-icono"].", ".
+					$_POST["txt-version"].", ".
+					$_POST["txt-fecha-actualizacion"].", ".
+					$_POST["slc-desarrollador"];
+			exit;
+
+
+
 			include_once("../class/class_producto.php");
 			include_once("../class/class_icono.php");
 			include_once("../class/class_usuario.php");
