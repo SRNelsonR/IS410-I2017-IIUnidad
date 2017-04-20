@@ -29,7 +29,7 @@ $(document).ready(function(){
 			method: "POST",
 			data:parametros,
 			success:function(resultado){
-				alert(resultado);
+				$("#div-resultado-guardar").html(resultado);
 			},
 			error:function(){
 

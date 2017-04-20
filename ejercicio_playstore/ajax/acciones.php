@@ -1,21 +1,8 @@
 <?php
 	switch ($_GET["accion"]) {
 		case '1':
-			/*$nombreProducto,
-			$descripcion,
-			$fechaPublicacion,
-			$calificaciónPromedio,
-			$comentarios,
-			$URLProducto,
-			$tamanioArchivo,
-			$icono,
-			$categoria,
-			$estatus,
-			$version,
-			$fechaActualizacion,
-			$desarrollador*/
 
-			echo 	$_POST["txt-aplicacion"].", ".
+			/*echo 	$_POST["txt-aplicacion"].", ".
 					$_POST["txt-descripcion"].", ".
 					$_POST["txt-fecha-publicacion"].", ".
 					$_POST["txt-calificacion"].", ".
@@ -25,7 +12,7 @@
 					$_POST["txt-version"].", ".
 					$_POST["txt-fecha-actualizacion"].", ".
 					$_POST["slc-desarrollador"];
-			exit;
+			exit;*/
 
 
 
@@ -34,6 +21,11 @@
 			include_once("../class/class_usuario.php");
 			include_once("../class/class_desarrollador.php");
 			include_once("../class/class_aplicacion.php");
+			include_once("../class/class-conexion.php");
+			$conexion = new Conexion();
+			$conexion->establecerConexion();
+			
+
 			$aplicacion = new Aplicacion(
 					$_POST["txt-aplicacion"],
 					$_POST["txt-descripcion"],
@@ -47,10 +39,10 @@
 					null,//Estatus
 					$_POST["txt-version"],
 					$_POST["txt-fecha-actualizacion"],
-					new Desarrollador($_POST["slc-desarrollador"], null,null)
+					$_POST["slc-desarrollador"]
 			);
 
-			$aplicacion->guardarRegistro();
+			$aplicacion->guardarRegistro($conexion);
 			break;
 		case '2':
 				include_once("../class/class-conexion.php");
@@ -76,11 +68,11 @@
 						    c.nombre_pais,
 						    d.nombre_empresa
 						FROM tbl_aplicaciones a
-						INNER JOIN tbl_desarrolladores b
+						LEFT JOIN tbl_desarrolladores b
 						ON (a.codigo_desarrollador = b.codigo_desarrollador)
-						INNER JOIN tbl_paises c
+						LEFT JOIN tbl_paises c
 						ON (a.codigo_pais = c.codigo_pais)
-						INNER JOIN tbl_empresas d
+						LEFT JOIN tbl_empresas d
 						ON (a.codigo_empresa = d.codigo_empresa)"
 			);
 			while($fila = $conexion->obtenerRegistro($resultadoAplicaciones)){

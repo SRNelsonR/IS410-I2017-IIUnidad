@@ -182,6 +182,7 @@
 						</td>
 					</tr>
 				</table>
+				<div id="div-resultado-guardar"></div>
 				<!--- FIN DEL FORMULARIO -->
 			</div>
 			<!--Listado de las aplicaciones-->
@@ -199,9 +200,9 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/controlador.js"></script>
     <script type="text/javascript">
-    	$("#btn-accion").click(function(evento){
+    	$("#btn-accion").click(function(e){
     		//En caso de que el boton sea un anchor <a>
-    		evento.preventDefault();
+    		e.preventDefault();
     		alert("Acccion");
     	});
 

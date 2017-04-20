@@ -73,21 +73,43 @@
 				" Desarrollador: " . $this->desarrollador->toString();
 		}
 
-		public function guardarRegistro(){
-			$archivo = fopen("../data/aplicaciones.csv","a");
-			fwrite(
-				$archivo,
-				$this->nombreProducto.",".
-				$this->descripcion.",".
-				$this->fechaPublicacion.",".
-				$this->calificacionPromedio.",".
-				$this->URLProducto.",".
-				$this->tamanioArchivo.",".
-				$this->version.",".
-				$this->desarrollador->getNombreUsuario().",".
-				$this->icono->getURLImagen()."\n"
+		public function guardarRegistro($conexion){
+			$sql = sprintf(
+					"INSERT INTO tbl_aplicaciones(
+						nombre, 
+						descripcion,
+						fecha_actualizacion, 
+						fecha_publicacion, 
+						calificacion, 
+						url, 
+						tamanio_archivo, 
+						url_icono, 
+						version, 
+						codigo_desarrollador
+					) VALUES (
+						'%s','%s','%s','%s','%s','%s','%s','%s','%s','%s'
+					)",
+					$conexion->getEnlace()->real_escape_string(stripslashes( $this->nombreProducto)),
+					$conexion->getEnlace()->real_escape_string(stripslashes( $this->descripcion)),
+					$conexion->getEnlace()->real_escape_string(stripslashes( $this->fechaActualizacion)),
+					$conexion->getEnlace()->real_escape_string(stripslashes( $this->fechaPublicacion)),
+					$conexion->getEnlace()->real_escape_string(stripslashes( $this->calificacionPromedio)),
+					$conexion->getEnlace()->real_escape_string(stripslashes( $this->URLProducto)),
+					$conexion->getEnlace()->real_escape_string(stripslashes( $this->tamanioArchivo)),
+					$conexion->getEnlace()->real_escape_string(stripslashes( $this->icono->getURLImagen())),
+					$conexion->getEnlace()->real_escape_string(stripslashes( $this->version)),
+					$conexion->getEnlace()->real_escape_string(stripslashes( $this->desarrollador))
 			);
-			fclose($archivo);
+			$resultadoInsert = $conexion->ejecutarInstruccion($sql);
+			$resultado=array();
+			if ($resultadoInsert === TRUE) {
+				$resultado["codigo"]=1;
+				$resultado["mensaje"]="Exito, el  registro fue almacenado";
+			} else {
+				$resultado["codigo"]=0;
+				$resultado["mensaje"]="Error: " . $sql . "<br>" . $conexion->getEnlace()->error;
+			}
+			echo json_encode($resultado);
 		}
 	}
 

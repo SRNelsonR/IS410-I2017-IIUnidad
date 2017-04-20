@@ -30,6 +30,10 @@
 			return $this->enlace->query($sql);
 		}
 
+		public function ejecutar($sql){
+			return $this->enlace->execute($sql);
+		}
+
 		public function obtenerRegistro($resultado){
 			return mysqli_fetch_array($resultado);
 		}
