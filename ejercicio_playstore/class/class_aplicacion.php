@@ -111,6 +111,32 @@
 			}
 			echo json_encode($resultado);
 		}
+
+		public static function eliminarRegistro($conexion, $codigoAplicacion){
+			//Eliminar informacion de las categorias relacionadas a una aplicacion
+			$sql = sprintf(
+					"DELETE FROM tbl_categorias_x_aplicacion WHERE codigo_aplicacion = %s",
+						$conexion->getEnlace()->real_escape_string(stripslashes($codigoAplicacion))
+					);
+			//echo $sql;
+			$resultadoDelete = $conexion->ejecutarInstruccion($sql);
+			//Eliminar informacion de la aplicacion
+			$sql = sprintf(
+					"DELETE FROM tbl_aplicaciones WHERE codigo_aplicacion = %s",
+						$conexion->getEnlace()->real_escape_string(stripslashes($codigoAplicacion))
+					);
+			//echo $sql;
+			$resultadoDelete = $conexion->ejecutarInstruccion($sql);
+			$resultado=array();
+			if ($resultadoDelete === TRUE) {
+				$resultado["codigo"]=1;
+				$resultado["mensaje"]="Exito, el  registro fue eliminado";
+			} else {
+				$resultado["codigo"]=0;
+				$resultado["mensaje"]="Error: " . $sql . "<br>" . $conexion->getEnlace()->error;
+			}
+			echo json_encode($resultado);
+		}
 	}
 
 	

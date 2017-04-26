@@ -183,6 +183,7 @@
 					</tr>
 				</table>
 				<div id="div-resultado-guardar"></div>
+				<div id="div-resultado-eliminar"></div>
 				<!--- FIN DEL FORMULARIO -->
 			</div>
 			<!--Listado de las aplicaciones-->
