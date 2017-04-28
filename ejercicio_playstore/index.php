@@ -88,6 +88,7 @@
 						<td>Nombre aplicación:</td>
 						<td>
 							<input type="text" name="" id="txt-aplicacion" class="form-control">
+							<input type="hidden" id = "txth-codigo-aplicacion">
 						</td>
 					</tr>
 					<tr>
@@ -99,7 +100,7 @@
 					<tr>
 						<td>Fecha de publicación:</td>
 						<td>
-							<input type="text" name="" id="txt-fecha-publicacion" class="form-control">
+							<input type="date" name="" id="txt-fecha-publicacion" class="form-control">
 						</td>
 					</tr>
 					<tr>
@@ -156,7 +157,7 @@
 					<tr>
 						<td>Fecha de actualización:</td>
 						<td>
-							<input type="text" name="" id="txt-fecha-actualizacion" class="form-control">
+							<input type="date" name="" id="txt-fecha-actualizacion" class="form-control">
 						</td>
 					</tr>
 					<tr>
@@ -175,6 +176,9 @@
 						<td colspan="2">
 							<button id="btn-guardar" class="btn btn-primary">
 								Guardar
+							</button>
+							<button id="btn-actualizar" class="btn btn-success" style="display: none;">
+								Actualizar
 							</button>
 							<button id="btn-limpiar" class="btn btn-warning">
 								Limpiar

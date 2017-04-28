@@ -152,6 +152,35 @@
 			
 			echo json_encode($fila);
 			break;
+		case '5':
+			include_once("../class/class_producto.php");
+			include_once("../class/class_icono.php");
+			include_once("../class/class_usuario.php");
+			include_once("../class/class_desarrollador.php");
+			include_once("../class/class_aplicacion.php");
+			include_once("../class/class-conexion.php");
+			$conexion = new Conexion();
+			$conexion->establecerConexion();
+			
+
+			$aplicacion = new Aplicacion(
+					$_POST["txt-aplicacion"],
+					$_POST["txt-descripcion"],
+					$_POST["txt-fecha-publicacion"],
+					$_POST["txt-calificacion"],
+					null,//Comentarios
+					$_POST["txt-url"],
+					$_POST["txt-tamanio"],
+					new Icono($_POST["slc-icono"],5,5),
+					null,//Categorias
+					null,//Estatus
+					$_POST["txt-version"],
+					$_POST["txt-fecha-actualizacion"],
+					$_POST["slc-desarrollador"]
+			);
+
+			$aplicacion->actualizarRegistro($conexion,$_POST["txth-codigo-aplicacion"]);
+			break;
 		default:
 			# code...
 			break;

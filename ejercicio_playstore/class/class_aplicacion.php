@@ -112,6 +112,45 @@
 			echo json_encode($resultado);
 		}
 
+		public function actualizarRegistro($conexion, $codigoAplicacion){
+			$sql = sprintf(
+					"UPDATE tbl_aplicaciones 
+					SET nombre='%s',
+						descripcion='%s',
+						fecha_actualizacion='%s',
+						fecha_publicacion='%s',
+						calificacion='%s',
+						url='%s',
+						tamanio_archivo='%s',
+						url_icono='%s',
+						version='%s',
+						codigo_desarrollador='%s'
+					WHERE codigo_aplicacion='%s'",
+					$conexion->getEnlace()->real_escape_string(stripslashes( $this->nombreProducto)),
+					$conexion->getEnlace()->real_escape_string(stripslashes( $this->descripcion)),
+					$conexion->getEnlace()->real_escape_string(stripslashes( $this->fechaActualizacion)),
+					$conexion->getEnlace()->real_escape_string(stripslashes( $this->fechaPublicacion)),
+					$conexion->getEnlace()->real_escape_string(stripslashes( $this->calificacionPromedio)),
+					$conexion->getEnlace()->real_escape_string(stripslashes( $this->URLProducto)),
+					$conexion->getEnlace()->real_escape_string(stripslashes( $this->tamanioArchivo)),
+					$conexion->getEnlace()->real_escape_string(stripslashes( $this->icono->getURLImagen())),
+					$conexion->getEnlace()->real_escape_string(stripslashes( $this->version)),
+					$conexion->getEnlace()->real_escape_string(stripslashes( $this->desarrollador)),
+					$conexion->getEnlace()->real_escape_string(stripslashes( $codigoAplicacion))
+			);
+			
+			$resultadoUpdate = $conexion->ejecutarInstruccion($sql);
+			$resultado=array();
+			if ($resultadoUpdate === TRUE) {
+				$resultado["codigo"]=1;
+				$resultado["mensaje"]="Exito, el  registro fue actualizado";
+			} else {
+				$resultado["codigo"]=0;
+				$resultado["mensaje"]="Error: " . $sql . "<br>" . $conexion->getEnlace()->error;
+			}
+			echo json_encode($resultado);
+		}
+
 		public static function eliminarRegistro($conexion, $codigoAplicacion){
 			//Eliminar informacion de las categorias relacionadas a una aplicacion
 			$sql = sprintf(
